@@ -90,11 +90,11 @@ $curyear = date('Y');
 if($startyear<$curyear){
     $curyear=$startyear.'-'.$curyear;
 }
-defined('PROJECT_NAME')        OR define('PROJECT_NAME','AdminDek Template'); 
+defined('PROJECT_NAME')        OR define('PROJECT_NAME','JK Handicraft'); 
 defined('OUR_BRAND')       	   OR define('OUR_BRAND',"");
 defined('SESSION_YEAR')        OR define('SESSION_YEAR',"$curyear");
-defined('SITE_SALT')           OR define('SITE_SALT',"AdminDek Template");
-defined('TP')        		   OR define('TP',"tmp_"); // Table Prefix
+defined('SITE_SALT')           OR define('SITE_SALT',"JK Handicraft");
+defined('TP')        		   OR define('TP',"jk_"); // Table Prefix
 defined('PRE')                 OR define('PRE',"<pre>");
 defined('HEADERTHEME')         OR define('HEADERTHEME',"theme1"); // default themelight1
 defined('LOGOTHEME')           OR define('LOGOTHEME',"theme1"); //default theme6
@@ -115,11 +115,11 @@ if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='localhost'){
 	defined('DB_HOST')		? null : define('DB_HOST','localhost');
 	defined('DB_USER')		? null : define('DB_USER', 'root');
 	defined('DB_PASSWORD')	? null : define('DB_PASS','');
-	defined('DB_NAME')		? null : define('DB_NAME','db_admindektemplate');
+	defined('DB_NAME')		? null : define('DB_NAME','db_jkhandicraft');
 }
 else{
 	defined('DB_HOST')      ? null : define('DB_HOST', 'localhost');
-	defined('DB_USER')      ? null : define('DB_USER', 'root');
-	defined('DB_PASSWORD')  ? null : define('DB_PASS', '');
-	defined('DB_NAME')      ? null : define('DB_NAME', '');
+	defined('DB_USER')      ? null : define('DB_USER', 'dakshadv_jkhandicraft');
+	defined('DB_PASSWORD')  ? null : define('DB_PASS', 'Jkhandicraft@123#');
+	defined('DB_NAME')      ? null : define('DB_NAME', 'dakshadv_jkhandicraft');
 }

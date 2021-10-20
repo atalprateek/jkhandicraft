@@ -24,7 +24,7 @@
     		$CI = get_instance();
 			if($CI->session->user===NULL || $CI->session->role!='admin' || $CI->session->project!=PROJECT_NAME ){
 				setredirecturl();
-				redirect('login/');
+				redirect(admin_url('login/'));
 			}
 			else{
 				//getsubmission();
@@ -41,7 +41,7 @@
 					redirect($redirecturl);
 				}
 				else{
-					redirect($url);
+					redirect(admin_url($url));
 				}
 			}
 		}  

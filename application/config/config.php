@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='localhost'){
-    $config['base_url'] = 'http://localhost/templates/admindek_template';
+    $config['base_url'] = 'http://localhost/projects/jkhandicraft';
 }
 else{
     $config['base_url'] = "http://$_SERVER[HTTP_HOST]";

@@ -89,12 +89,12 @@
 		$data['styles']=$this->styles;
 		$data['top_script']=$this->top_script;
 		$data['bottom_script']=$this->bottom_script;
-		$this->ci->load->view('includes/top-section',$data);
-		$this->ci->load->view('includes/header');
-		$this->ci->load->view('includes/sidebar');
-		$this->ci->load->view('includes/breadcrumb');
-		$this->ci->load->view($location.$view);
-		$this->ci->load->view('includes/bottom-section');
+		$this->ci->load->view('admin/includes/top-section',$data);
+		$this->ci->load->view('admin/includes/header');
+		$this->ci->load->view('admin/includes/sidebar');
+		$this->ci->load->view('admin/includes/breadcrumb');
+		$this->ci->load->view('admin/'.$location.$view);
+		$this->ci->load->view('admin/includes/bottom-section');
 	}
 	
 	function loaddatatable(){
