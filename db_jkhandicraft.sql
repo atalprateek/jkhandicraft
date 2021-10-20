@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2021 at 06:13 AM
+-- Generation Time: Oct 20, 2021 at 03:29 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -20,6 +20,65 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_jkhandicraft`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jk_category`
+--
+
+CREATE TABLE `jk_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `slug` varchar(100) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `image` text NOT NULL,
+  `banner_image` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jk_category`
+--
+
+INSERT INTO `jk_category` (`id`, `name`, `slug`, `description`, `parent_id`, `image`, `banner_image`, `status`) VALUES
+(1, 'Jewellery & Accessories', 'jewellery-accessories', '', 0, '/assets/images/category/jewellery-accessories2.jpeg', NULL, 1),
+(2, 'Hats & Caps', 'hats-caps', '', 1, '/assets/images/category/hats-caps.jpeg', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jk_products`
+--
+
+CREATE TABLE `jk_products` (
+  `id` int(11) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `sku` varchar(20) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `short_description` varchar(500) NOT NULL,
+  `description` text NOT NULL,
+  `price` float(14,2) NOT NULL,
+  `discount` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jk_product_images`
+--
+
+CREATE TABLE `jk_product_images` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -75,6 +134,26 @@ INSERT INTO `jk_users` (`id`, `username`, `mobile`, `name`, `email`, `password`,
 --
 
 --
+-- Indexes for table `jk_category`
+--
+ALTER TABLE `jk_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jk_products`
+--
+ALTER TABLE `jk_products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `sku` (`sku`);
+
+--
+-- Indexes for table `jk_product_images`
+--
+ALTER TABLE `jk_product_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jk_sidebar`
 --
 ALTER TABLE `jk_sidebar`
@@ -90,6 +169,24 @@ ALTER TABLE `jk_users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `jk_category`
+--
+ALTER TABLE `jk_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `jk_products`
+--
+ALTER TABLE `jk_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jk_product_images`
+--
+ALTER TABLE `jk_product_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jk_sidebar`

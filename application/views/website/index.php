@@ -124,6 +124,43 @@
         <nav class="navigation">
             <div class="container-fluid">
                 <ul class="menu">
+                    <?php
+                        $menucatgories=getfeaturedcategories();
+                        if(!empty($menucatgories) && is_array($menucatgories)){
+                            foreach($menucatgories as $menu){
+                                $active="";
+                                if($menu['slug']==$this->uri->segment(2)){
+                                    $active="active";
+                                }
+                                if(isset($menu['submenu']) && !empty($menu['submenu'])){
+                    ?>
+                    <li class="menu-item-has-children has-mega-menu">
+                        <a class="nav-link" href="javascript:void(0);"><?= $menu['name']; ?></a></span>
+                        <div class="mega-menu mega-shop">
+                            <div class="mega-anchor"></div>
+                            <div class="mega-menu__column">
+                                <!--<h4>Accessories<span class="sub-toggle"></span></h4>-->
+                                <ul class="sub-menu--mega">
+                                    <?php
+                                        foreach($menu['submenu'] as $submenu){
+                                    ?>
+                                    <li><a href="#"><?= $submenu['name']; ?></a></li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <?php
+                                }else{
+                    ?>
+					<li class="menu-item-has-children has-mega-menu"> <a class="nav-link" href="#"><?= $menu['name']; ?></a></li>
+                    <?php
+                                }
+                            }
+                        }
+                    ?>
+                </ul>
+                <ul class="menu d-none">
                     <li class="menu-item-has-children has-mega-menu"><a class="nav-link" href="javascript:void(0);">Jewellery & Accessories</a></span>
                         <div class="mega-menu mega-shop">
                             <div class="mega-anchor"></div>

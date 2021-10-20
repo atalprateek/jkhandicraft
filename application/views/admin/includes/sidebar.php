@@ -15,20 +15,15 @@
                                                 <span class="pcoded-mtext">Home</span>
                                             </a>
                                         </li>
-                                        <li class="pcoded-hasmenu <?= activate_dropdown('stores'); ?>">
+                                        <li class="pcoded-hasmenu <?= activate_dropdown('products'); ?>">
                                             <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="fa fa-building-o"></i></span>
-                                                <span class="pcoded-mtext">Stores</span>
+                                                <span class="pcoded-micon"><i class="feather icon-package"></i></span>
+                                                <span class="pcoded-mtext">Products</span>
                                             </a>
                                             <ul class="pcoded-submenu">
-                                                <li class="<?= activate_menu('stores'); ?>">
-                                                    <a href="<?=  admin_url('stores/'); ?>" class="waves-effect waves-dark">
-                                                        <span class="pcoded-mtext">Add Store</span>
-                                                    </a>
-                                                </li>
-                                                <li class="<?= activate_menu('stores/storelist'); ?>">
-                                                    <a href="<?=  admin_url('stores/storelist/'); ?>" class="waves-effect waves-dark">
-                                                        <span class="pcoded-mtext">Store List</span>
+                                                <li class="<?= activate_menu('products/category'); ?>">
+                                                    <a href="<?=  admin_url('products/category/'); ?>" class="waves-effect waves-dark">
+                                                        <span class="pcoded-mtext">Category</span>
                                                     </a>
                                                 </li>
                                             </ul>
