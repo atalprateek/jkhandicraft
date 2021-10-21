@@ -553,4 +553,16 @@ class Product_model extends CI_Model{
         }
         return $products;
     }
+    
+    public function addenquiry($data){
+        $data['added_on']=date('Y-m-d H:i:s');
+        if($this->db->insert("enquiry",$data)){
+            return array("status"=>true,"message"=>"Enquiry Added Successfully!");
+        }
+        else{
+            $error=$this->db->error();
+            return array("status"=>false,"message"=>$error['message']);
+        }
+    }
+    
 }

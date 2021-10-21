@@ -21,7 +21,7 @@ class Products extends CI_Controller {
         $relatedproducts=$this->products->getproducts(array("t1.category"=>$product['category'],"t1.id!="=>$product['id']));
         $data['relatedproducts']=$relatedproducts;
         $data['categories']=$this->products->getcategory();
-        $data['wishlist']=getwishlistproductid();
+        //$data['wishlist']=getwishlistproductid();
         $this->load->view('website/includes/top-section',$data);
         $this->load->view('website/includes/header');
         $this->load->view('website/products/productdetails');
@@ -126,5 +126,20 @@ class Products extends CI_Controller {
         $data['products']=$products;
         $data['wishlist']=getwishlistproductid();
         $this->load->view('website/products/productlist',$data);
+    }
+    
+    public function addenquiry(){
+        if($this->input->post('addenquiry')!==NULL){
+            $data=$this->input->post();
+            unset($data['addenquiry']);
+			$result=$this->products->addenquiry($data);
+			if($result['status']===true){
+				$this->session->set_flashdata("msg",$result['message']);
+			}
+            else{
+                $this->session->set_flashdata("err_msg",$result['message']);
+            }
+        }
+        redirect($_SERVER['HTTP_REFERER']);
     }
 }

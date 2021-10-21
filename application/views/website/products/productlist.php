@@ -144,10 +144,10 @@
                                             foreach($products as $product){
                                     ?>
                                     <div class="col-6 col-md-4 col-lg-3 p-0">
-                                        <div class="ps-product--standard"><a href="#"><img class="ps-product__thumbnail" src="<?= $product['image']; ?>" alt="alt" /></a>
+                                        <div class="ps-product--standard"><a href="<?= base_url('product/'.$product['slug']); ?>"><img class="ps-product__thumbnail" src="<?= $product['image']; ?>" alt="alt" /></a>
                                             <div class="ps-product__content">
                                                 <p class="ps-product__type"><i class="icon-store"></i><?= $product['category_name']; ?></p>
-                                                <h5><a class="ps-product__name" href="#"><?= $product['name']; ?></a></h5>
+                                                <h5><a class="ps-product__name" href="<?= base_url('product/'.$product['slug']); ?>"><?= $product['name']; ?></a></h5>
                                                 <p class="ps-product-price-block"><span class="ps-product__sale">₹<?= $product['price']; ?></span>
                                                 </p>
                                             </div>
