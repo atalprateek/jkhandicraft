@@ -29,7 +29,7 @@ class Products extends CI_Controller {
             }
         }
         $data['category']=$options;
-        $units=$this->products->getunits();
+        $units=array();//$this->products->getunits();
         $options=array(""=>"Select Unit");
         if(is_array($units)){
             foreach($units as $unit){
@@ -50,7 +50,7 @@ class Products extends CI_Controller {
         }
         $data['product']=$product;
         $data['productimages']=$this->products->getproductimages($product['id']);
-        $data['productpackages']=$this->products->getproductpackages($product['id']);
+        //$data['productpackages']=$this->products->getproductpackages($product['id']);
         $data['title']="Edit Product";
         //$data['subtitle']="Sample Subtitle";
         $data['breadcrumb']=array();
@@ -72,7 +72,7 @@ class Products extends CI_Controller {
         }
         $data['subcategory']=$options;
         
-        $units=$this->products->getunits();
+        $units=array();//$this->products->getunits();
         $options=array(""=>"Select Unit");
         if(is_array($units)){
             foreach($units as $unit){

@@ -21,6 +21,16 @@
                                                 <span class="pcoded-mtext">Products</span>
                                             </a>
                                             <ul class="pcoded-submenu">
+                                                <li class="<?= activate_menu('products/addproduct'); ?>">
+                                                    <a href="<?=  admin_url('products/addproduct/'); ?>" class="waves-effect waves-dark">
+                                                        <span class="pcoded-mtext">Add Product</span>
+                                                    </a>
+                                                </li>
+                                                <li class="<?= activate_menu('products'); ?>">
+                                                    <a href="<?=  admin_url('products/'); ?>" class="waves-effect waves-dark">
+                                                        <span class="pcoded-mtext">Product List</span>
+                                                    </a>
+                                                </li>
                                                 <li class="<?= activate_menu('products/category'); ?>">
                                                     <a href="<?=  admin_url('products/category/'); ?>" class="waves-effect waves-dark">
                                                         <span class="pcoded-mtext">Category</span>

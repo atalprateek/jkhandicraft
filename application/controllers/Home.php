@@ -10,12 +10,13 @@ class Home extends CI_Controller {
 	
 	public function index(){
         $data['title']="Home";
-        /*$this->load->view('website/includes/top-section',$data);
+        $data['products']=$this->products->getproducts();
+        $this->load->view('website/includes/top-section',$data);
         $this->load->view('website/includes/header');
-        $this->load->view('website/pages/home');
+        $this->load->view('website/products/productlist');
         $this->load->view('website/includes/footer');
-        $this->load->view('website/includes/bottom-section');*/
-        $this->load->view('website/index');
+        $this->load->view('website/includes/bottom-section');
+        //$this->load->view('website/index');
 	}
     
 	public function aboutus(){

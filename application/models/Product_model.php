@@ -107,8 +107,8 @@ class Product_model extends CI_Model{
                 $product_id=$this->db->insert_id();
                 $productimage=array("product_id"=>$product_id,"type"=>"thumb","image"=>$image);
                 $this->db->insert("product_images",$productimage);
-                $stockdata=array("product_id"=>$product_id,"to_id"=>"123456","quantity"=>$quantity,"remarks"=>"Initial Stock Quantity","added_on"=>date('Y-m-d H:i:s'));
-                $this->db->insert("stock",$stockdata);
+                //$stockdata=array("product_id"=>$product_id,"to_id"=>"123456","quantity"=>$quantity,"remarks"=>"Initial Stock Quantity","added_on"=>date('Y-m-d H:i:s'));
+                //$this->db->insert("stock",$stockdata);
                 return array("status"=>true,"message"=>"Product Added Successfully!");
             }
             else{
@@ -145,26 +145,27 @@ class Product_model extends CI_Model{
     }
     
     public function getproducts($where=array(),$type="all",$orderby="t1.id"){
-        $columns="t1.*,  case when t2.image='' then '' else concat('".file_url()."',t2.image) end as image,t3.name as category_name,t3.slug as category_slug,round((t1.price-((t1.price*t1.discount)/100)),2) as discount_price,t4.unit";
+        $columns="t1.*,  case when t2.image='' then '' else concat('".file_url()."',t2.image) end as image,t3.name as category_name,t3.slug as category_slug,round((t1.price-((t1.price*t1.discount)/100)),2) as discount_price";
+        //",t4.unit";
         $this->db->select($columns);
         $this->db->from("products t1");
         $this->db->join("product_images t2","t1.id=t2.product_id and type='thumb'");
         $this->db->join("category t3","t1.category=t3.id");
-        $this->db->join("units t4","t1.unit_id=t4.id",'left');
+        //$this->db->join("units t4","t1.unit_id=t4.id",'left');
         $this->db->where($where);
         $this->db->order_by($orderby);
         $query=$this->db->get();
         if($type=='all'){
             $array=$query->result_array();
-            foreach($array as $key=>$value){
+            /*foreach($array as $key=>$value){
                 $packages=$this->getproductpackages($value['id']);
                 $array[$key]['packages']=$packages['packages'];
-            }
+            }*/
         }
         else{
             $array=$query->unbuffered_row('array');
-            $packages=$this->getproductpackages($array['id']);
-            $array['packages']=$packages['packages'];
+            //$packages=$this->getproductpackages($array['id']);
+            //$array['packages']=$packages['packages'];
             $category=$array['category'];
             $category=$this->db->get_where("category",array("id"=>$category))->unbuffered_row('array');
             $array['category_id']=($category['parent_id']==0)?$category['id']:$category['parent_id'];

@@ -24,7 +24,7 @@
                                                         <th>Slug</th>
                                                         <th>Category</th>
                                                         <th>Price</th>
-                                                        <th>Discount</th>
+                                                        <!--<th>Discount</th>-->
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -39,8 +39,8 @@
                                                         <td><?= $product['name']; ?></td>
                                                         <td><?= $product['slug']; ?></td>
                                                         <td><?= $product['category_name']; ?></td>
-                                                        <td><?= $product['price'].' / '.$product['unit']; ?></td>
-                                                        <td><?= $product['discount']; ?></td>
+                                                        <td><?= $product['price'];//.' / '.$product['unit']; ?></td>
+                                                        <!--<td><?= $product['discount']; ?></td>-->
                                                         <td>
                                                             <a href="<?= admin_url('products/editproduct/'.$product['slug'].'/'); ?>" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
                                                         </td>

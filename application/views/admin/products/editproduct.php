@@ -41,17 +41,17 @@
                                                         <input type="text" class="form-control" name="slug" id="slug" required value="<?= $product['slug']; ?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
+                                                <div class="form-group row d-none">
                                                     <label class="col-sm-2 col-form-label">Product No.</label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" name="sku" id="sku" value="<?= $product['sku']; ?>" >
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
+                                                <div class="form-group row d-none">
                                                     <label class="col-sm-2 col-form-label">Unit</label>
                                                     <div class="col-sm-10">
                                                         <?= form_dropdown('unit_id',$units,$product['unit_id'],
-                                                                          array('class'=>'form-control','required'=>"true","id"=>"unit_id")); ?>
+                                                                          array('class'=>'form-control',"id"=>"unit_id")); ?>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -79,12 +79,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Price <span id="perunit"><?= ' / '.$product['unit']; ?></span></label>
+                                                    <label class="col-sm-2 col-form-label">Price </label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" name="price" id="price" required value="<?= $product['price']; ?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
+                                                <div class="form-group row d-none">
                                                     <label class="col-sm-2 col-form-label">Discount(%)</label>
                                                     <div class="col-sm-10">
                                                         <input type="number" class="form-control" name="discount" id="discount" value="<?= $product['discount']; ?>">

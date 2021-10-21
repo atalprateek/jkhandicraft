@@ -28,16 +28,16 @@
                                                     <input type="text" class="form-control" name="slug" id="slug" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row d-none">
                                                 <label class="col-sm-2 col-form-label">Product No.</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" name="sku" id="sku" >
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row d-none">
                                                 <label class="col-sm-2 col-form-label">Unit</label>
                                                 <div class="col-sm-10">
-                                                    <?= form_dropdown('unit_id',$units,'',array('class'=>'form-control','required'=>"true","id"=>"unit_id")); ?>
+                                                    <?= form_dropdown('unit_id',$units,'',array('class'=>'form-control',"id"=>"unit_id")); ?>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -76,13 +76,13 @@
                                                     <input type="text" class="form-control" name="price" id="price" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row d-none">
                                                 <label class="col-sm-2 col-form-label">Discount(%)</label>
                                                 <div class="col-sm-10">
                                                     <input type="number" class="form-control" name="discount" id="discount" value="0">
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row d-none">
                                                 <label class="col-sm-2 col-form-label">Initial Stock Quantity<span id="qunit"></span></label>
                                                 <div class="col-sm-10">
                                                     <input type="number" class="form-control" name="quantity" id="quantity">

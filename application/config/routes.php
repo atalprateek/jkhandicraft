@@ -54,6 +54,12 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-$route['admin/logout']='admin/login/logout';
-
 $route['logout']='login/logout';
+
+$route['product']='products/index';
+$route['search']='products/search';
+$route['product/(:any)']='products/index';
+$route['category']='products/category';
+$route['category/(:any)']='products/category';
+
+$route['admin/logout']='admin/login/logout';
