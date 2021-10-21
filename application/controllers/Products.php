@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Products extends CI_Controller {
 
-	private $count=1;
+	private $count=16;
     var $cartproducts=array();
 	function __construct(){
 		parent::__construct();
@@ -64,7 +64,7 @@ class Products extends CI_Controller {
 	public function getfilteredproducts($type="page"){
 		$redirect=false;
 		$string=false;
-		$where=array("status"=>0);
+		$where=array();
 		$link=$this->uri->segment(1).'/';
 		$page=1;
 		$data['selected']=array();

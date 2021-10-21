@@ -128,6 +128,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-9">
+                        <?php if($title=="Home"){?>
                         <div class="shop__banner">
                             <div class="row">
                                 <div class="col-12 col-lg-4"><a href="#"><img src="<?= file_url('assets/img/banner1.jpg'); ?>" alt="alt" /></a></div>
@@ -136,6 +137,18 @@
 
                             </div>
                         </div>
+                        <?php 
+                            }
+                            else{
+                                if(isset($category['name'])){
+                                    echo '<h3>'.$category['name'].'</h3>';
+                                }
+                                elseif(isset($products[0])){
+                                    echo '<h3>'.$products[0]['category_name'].'</h3>';
+                                }
+                                
+                            }
+                        ?>
                         <div class="result__content mt-4">
                             <div class="section-shop--grid">
                                 <div class="row m-0">
@@ -155,6 +168,9 @@
                                     </div>
                                     <?php
                                             }
+                                        }
+                                        else{
+                                            echo "No Record found!!";
                                         }
                                     ?>
                                 </div>
