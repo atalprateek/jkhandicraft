@@ -87,8 +87,17 @@ class Products extends CI_Controller {
         $data['title']="Category";
         //$data['subtitle']="Sample Subtitle";
         $data['breadcrumb']=array();
-        $data['categories']=$this->products->getcategory();
+        $data['categories']=$this->products->getcategory(array("parent_id"=>0));
 		$this->template->load('products','category',$data);
+	}
+    
+	public function subcategory(){
+        $data['title']="Sub Category";
+        //$data['subtitle']="Sample Subtitle";
+        $data['breadcrumb']=array();
+        $data['categories']=$this->products->getcategory();
+        $data['subcategories']=$this->products->getcategory(array("parent_id!="=>0));
+		$this->template->load('products','subcategory',$data);
 	}
     
 	public function units(){
@@ -118,6 +127,11 @@ class Products extends CI_Controller {
                 $data['image']=$upload['path'];
             }
 			else{$data['image']='';}
+            $headings=array();
+            foreach($data['headings'] as $heading){
+                $headings[generate_slug($heading)]=$heading;
+            }
+            $data['headings']=json_encode($headings);
 			$result=$this->products->addcategory($data);
 			if($result['status']===true){
 				$this->session->set_flashdata("msg",$result['message']);
@@ -141,6 +155,11 @@ class Products extends CI_Controller {
                 create_image_thumb('.'.$upload['path'],'',FALSE,array("width"=>300,"height"=>300));
                 $data['image']=$upload['path'];
             }
+            $headings=array();
+            foreach($data['headings'] as $heading){
+                $headings[generate_slug($heading)]=$heading;
+            }
+            $data['headings']=json_encode($headings);
 			$result=$this->products->updatecategory($data);
 			if($result['status']===true){
 				$this->session->set_flashdata("msg",$result['message']);
@@ -150,6 +169,58 @@ class Products extends CI_Controller {
             }
         }
         redirect(admin_url('products/category'));
+    }
+    
+    public function addsubcategory(){
+        if($this->input->post('addsubcategory')!==NULL){
+            $data=$this->input->post();
+            unset($data['addsubcategory']);
+            $data['slug']=verify_slug('category',$data['slug']);
+			$upload_path='./assets/images/category/';
+			$allowed_types='gif|jpg|jpeg|png|svg';
+			$upload=upload_file('image',$upload_path,$allowed_types,$data['slug']);
+            if($upload['status']===true){
+                create_image_thumb('.'.$upload['path'],'',FALSE,array("width"=>300,"height"=>300));
+                $data['image']=$upload['path'];
+            }
+			else{$data['image']='';}
+            $headings=array();
+            foreach($data['headings'] as $heading){
+                $headings[generate_slug($heading)]=$heading;
+            }
+            $data['headings']=json_encode($headings);
+			$result=$this->products->addcategory($data);
+			if($result['status']===true){
+				$this->session->set_flashdata("msg",$result['message']);
+			}
+            else{
+                $this->session->set_flashdata("err_msg",$result['message']);
+            }
+        }
+        redirect(admin_url('products/subcategory'));
+    }
+    
+    public function updatesubcategory(){
+        if($this->input->post('updatesubcategory')!==NULL){
+            $data=$this->input->post();
+            unset($data['updatesubcategory']);
+            $data['slug']=verify_slug('category',$data['slug'],$data['id']);
+			$upload_path='./assets/images/category/';
+			$allowed_types='gif|jpg|jpeg|png|svg';
+			$upload=upload_file('image',$upload_path,$allowed_types,$data['slug']);
+            if($upload['status']===true){
+                create_image_thumb('.'.$upload['path'],'',FALSE,array("width"=>300,"height"=>300));
+                $data['image']=$upload['path'];
+            }
+			$result=$this->products->updatecategory($data);
+			if($result['status']===true){
+				$this->session->set_flashdata("msg",$result['message']);
+			}
+            else{
+                $this->session->set_flashdata("err_msg",$result['message']);
+            }
+        }
+        redirect(admin_url('products/subcategory'));
     }
     
     public function getcategory(){

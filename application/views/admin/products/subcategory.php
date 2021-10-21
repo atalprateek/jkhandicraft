@@ -14,7 +14,7 @@
                             <div class="card-block">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <?= form_open_multipart('admin/products/addcategory/'); ?>
+                                        <?= form_open_multipart('admin/products/addsubcategory/'); ?>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
@@ -27,18 +27,20 @@
                                                     <input type="text" class="form-control" name="slug" id="slug" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group row d-none">
+                                            <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Parent</label>
                                                 <div class="col-sm-10">
                                                     <select name="parent_id" class="form-control fill" id="parent_id">
                                                         <option value="">Select Parent</option>
                                                         <?php
                                                                 $parent=array("");
+                                                                $headings=array();
                                                                 if($categories!==NULL){
                                                                     foreach($categories as $category){
                                                                         if($category['parent_id']!=0){continue;}
                                                                         else{
                                                                             $parent[$category['id']]=$category['name'];
+                                                                            $headings[$category['id']]=$category['headings'];
                                                                             echo "<option value='$category[id]'>$category[name]</option>";
                                                                         }
                                                                     }
@@ -48,22 +50,17 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Description</label>
+                                                <label class="col-sm-2 col-form-label">Heading</label>
                                                 <div class="col-sm-10">
-                                                    <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+                                                    <select name="headings" class="form-control fill" id="headings">
+                                                        <option value="">Select Heading</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Headings</label>
+                                                <label class="col-sm-2 col-form-label">Description</label>
                                                 <div class="col-sm-10">
-                                                    <div class="row">
-                                                        <div class="col-10">
-                                                            <input type="text" class="form-control headings" name="headings[]" required>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <button type="button" class="btn btn-mini btn-primary add-btn"><i class="fa fa-plus"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <textarea name="description" id="description" class="form-control" rows="3"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -76,7 +73,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label"></label>
                                                 <div class="col-sm-10">
-                                                    <input type="submit" class="btn btn-success waves-effect waves-light" name="addcategory" value="Save Category">
+                                                    <input type="submit" class="btn btn-success waves-effect waves-light" name="addsubcategory" value="Save Category">
                                                     <button type="button" class="btn btn-danger waves-effect waves-light cancel-btn hidden">Cancel</button>
                                                 </div>
                                             </div>
@@ -90,55 +87,23 @@
                                                         <th>Sl.No.</th>
                                                         <th>Image</th>
                                                         <th>Category</th>
-                                                        <!--<th>Slug</th>-->
+                                                        <th>Parent</th>
                                                         <th>Headings</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php 
-                                                        function treeview($array,$parent, $id = 0,$symbol=""){
-                                                            static $slno=1;
-                                                            for ($i = 0; $i < count($array); $i++){
-
-                                                                if($array[$i]['parent_id']==$id) {
-                                                                    $image=$array[$i]['image'];
-                                                                    $name=$symbol.$array[$i]['name'];
-                                                                    $slug=$array[$i]['slug'];
-                                                                    $parent_id=$array[$i]['parent_id'];
-                                                                    $row="<tr>";
-                                                                    $row.="<td>".$slno."</td>";
-                                                                    $row.="<td><img src='".$image."' height='50' width='50'></td>";
-                                                                    $row.="<td>".$name."</td>";
-                                                                    $row.="<td>".$slug."</td>";
-                                                                    //$row.="<td>".$parent[$parent_id]."</td>";
-                                                                    $row.="<td>";
-                                                                    //$row.="<button type='button' class='btn btn-xs btn-primary view-btn' value='".$array[$i]['id']."'><i class='fa fa-eye'></i></button>";
-                                                                    $row.=" <button type='button' class='btn btn-xs btn-info edit-btn' value='".$array[$i]['id']."'><i class='fa fa-edit'></i></button>";
-                                                                    $row.="</td>";
-                                                                    $row.="</tr>";
-                                                                    $slno++;
-                                                                    echo $row;
-                                                                    treeview($array,$parent, $array[$i]['id'],"-- ");
-                                                                }
-                                                            }
-                                                        }
-                                                        //treeview($categories,$parent);
-                                                        if($categories){$i=0;
-                                                            foreach($categories as $category){ $i++;
-                                                                $headings='';
-                                                                if(!empty($category['headings'])){
-                                                                    $headings=json_decode($category['headings'],true);
-                                                                    $headings=implode(', ',$headings);
-                                                                }
+                                                        if($subcategories){$i=0;
+                                                            foreach($subcategories as $subcategory){ $i++;
                                                     ?>
                                                     <tr>
                                                         <td><?php echo $i; ?></td>
-                                                        <td><img src='<?= $category['image']; ?>' height='50' width='50'></td>
-                                                        <td><?php echo $category['name']; ?></td>
-                                                        <!--<td><?php echo $category['slug']; ?></td>-->
-                                                        <td><?php echo $headings; ?></td>
-                                                        <td><button type="button" class="btn btn-xs btn-info edit-btn" value="<?php echo $category['id']; ?>"><i class="fa fa-edit"></i></button></td>
+                                                        <td><img src="<?php echo $subcategory['image']; ?>" height="50" width="50" alt=""></td>
+                                                        <td><?php echo $subcategory['name']; ?></td>
+                                                        <td><?php echo $parent[$subcategory['parent_id']]; ?></td>
+                                                        <td><?php echo $subcategory['headings']; ?></td>
+                                                        <td><button type="button" class="btn btn-xs btn-info edit-btn" value="<?php echo $subcategory['id']; ?>"><i class="fa fa-edit"></i></button></td>
                                                     </tr>
                                                     <?php
                                                             }
@@ -158,6 +123,7 @@
         </div>
     </div>
 </div>
+<div class="hidden" id="allheadings"><?= json_encode($headings); ?></div>
 <script>
 	$(document).ready(function(e) {
 		$('#name').keyup(function(){
@@ -173,9 +139,25 @@
 				});
 			//}
 		});
+        $('body').on('change','#parent_id',function(){
+            var options='<option value="">Select Heading</option>';
+            var parent_id=$(this).val();
+            if(parent_id!=''){
+                var allheadings=JSON.parse($('#allheadings').text());
+                if(allheadings[parent_id]!==''){
+                    var headings=JSON.parse(allheadings[parent_id]);
+                    for (var key in headings) {
+                        options+='<option value="'+key+'">'+headings[key]+'</option>';
+                    }
+                }
+            }
+            $('#headings').html(options);
+            $('#headings').val($('#headings').data('val'));
+            $('#headings').removeAttr('data-val');
+        });
         $('table').on('click','.edit-btn',function(){
             $('#parent_id option').show();
-            $('.remove-btn').click();
+            $('#headings').removeAttr('data-val');
             $.ajax({
                 type:"post",
                 url:"<?= admin_url('products/getcategory/'); ?>",
@@ -185,18 +167,14 @@
                     $('#name').val(data['name']);
                     $('#slug').val(data['slug']);
                     if(data['parent_id']==0){ data['parent_id']=''; }
-                    $('#parent_id').val(data['parent_id']);
+                    $('#parent_id').val(data['parent_id']).trigger('change');
                     $('#description').val(data['description']);
                     $('#id').val(data['id']);
-                    headings=JSON.parse(data['headings']);
-                    for (var key in headings) {
-                        $('.headings').last().val(headings[key]);
-                        $('.add-btn').click();
-                    }
-                    $('.remove-btn:last').click();
+                    $('#headings').attr('data-val',data['headings']);
+                    $('#headings').val(data['headings'])
                     $('.cancel-btn').removeClass('hidden');
-                    $('input[name="addcategory"]').attr('name','updatecategory').val('Update Category');
-                    $('form').attr('action','<?= admin_url('products/updatecategory/'); ?>');
+                    $('input[name="addsubcategory"]').attr('name','updatesubcategory').val('Update Category');
+                    $('form').attr('action','<?= admin_url('products/updatesubcategory/'); ?>');
                     $('#parent_id').find('option[value="'+data['id']+'"]').hide();
                 }
             });
@@ -204,18 +182,9 @@
         $('.cancel-btn').click(function(){
             $('#name,#slug,#parent_id,#description,#id,#image').val('');
             $('.cancel-btn').addClass('hidden');
-            $('input[name="updatecategory"]').attr('name','addcategory').val('Save Category');
-            $('form').attr('action','<?= admin_url('products/addcategory/'); ?>');
+            $('input[name="updatesubcategory"]').attr('name','addsubcategory').val('Save Category');
+            $('form').attr('action','<?= admin_url('products/addsubcategory/'); ?>');
             $('#parent_id option').show();
-        });
-        $('body').on('click','.add-btn',function(){
-            var row='<br><div class="row">'+$(this).closest('.row').html()+'</div>';
-            $(this).closest('.col-sm-10').append(row);
-            $('.add-btn:last').removeClass('btn-primary add-btn').addClass('btn-danger remove-btn').html('<i class="fa fa-minus"></i>');
-        });
-        $('body').on('click','.remove-btn',function(){
-            $(this).closest('.row').prev().remove();
-            $(this).closest('.row').remove();
         });
     });
 function getPhoto(input){

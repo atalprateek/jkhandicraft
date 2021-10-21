@@ -31,8 +31,9 @@ class Products extends CI_Controller {
 	}
     
 	public function category(){
+        $data['title']="Products";
         $products=$this->getfilteredproducts();
-        $data=$products;
+        $data=array_merge($data,$products);
         $data['categories']=$this->products->getcategory();
         //$data['wishlist']=getwishlistproductid();
         $this->load->view('website/includes/top-section',$data);
@@ -42,7 +43,7 @@ class Products extends CI_Controller {
         $this->load->view('website/includes/bottom-section');
 	}
     
-	public function search(){
+	/*public function search(){
         $query=$this->input->get('query');
         if($query===NULL){
             redirect('/');
@@ -58,7 +59,7 @@ class Products extends CI_Controller {
         $this->load->view('website/products/productlist');
         $this->load->view('website/includes/footer');
         $this->load->view('website/includes/bottom-section');
-	}
+	}*/
     
 	public function getfilteredproducts($type="page"){
 		$redirect=false;
@@ -148,10 +149,11 @@ class Products extends CI_Controller {
 		$order="t2.id";
 		$products=$this->getproducts($where,$order,$page,$link,$pagefilters);
 		if($type=='page'){
-			return $products;
+            $data=array_merge($data,$products);
+			return $data;
 		}
 		else{
-			$this->load->view('website/pages/product/product-list',$products);
+			//$this->load->view('website/pages/product/product-list',$products);
 		}
 	}
 	
