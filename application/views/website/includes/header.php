@@ -422,10 +422,11 @@
                     <a href="<?= base_url('category/'.$menu['slug']); ?>"><?= $menu['name']; ?></a><span class="sub-toggle"><i class="icon-chevron-down"></i></span>
                     <ul class="sub-menu">
                         <?php
-                            foreach($menu['submenu'] as $submenu){
+                            foreach($menu['submenu'] as $key=>$submenu){
+                                foreach($submenu as $submenuitem){
                         ?>
-                        <li><a href="<?= base_url('category/'.$submenu['slug']); ?>"><?= $submenu['name']; ?></a></li>
-                        <?php } ?>
+                        <li><a href="<?= base_url('category/'.$submenuitem['slug']); ?>"><?= $submenuitem['name']; ?></a></li>
+                        <?php }} ?>
                     </ul>
                 </li>
                 <?php

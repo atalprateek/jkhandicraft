@@ -17,7 +17,7 @@
                                         <a class="nav-link <?= isset($_GET['images'])?'active show':'' ?>" data-toggle="tab" href="#images" role="tab" aria-selected="true">Product Images</a>
                                         <div class="slide"></div>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item d-none">
                                         <a class="nav-link <?= isset($_GET['packages'])?'active show':'' ?>" data-toggle="tab" href="#packages" role="tab" aria-selected="true">Product Packages</a>
                                         <div class="slide"></div>
                                     </li>

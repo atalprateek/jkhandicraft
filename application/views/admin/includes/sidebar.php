@@ -36,6 +36,11 @@
                                                         <span class="pcoded-mtext">Category</span>
                                                     </a>
                                                 </li>
+                                                <li class="<?= activate_menu('products/subcategory'); ?>">
+                                                    <a href="<?=  admin_url('products/subcategory/'); ?>" class="waves-effect waves-dark">
+                                                        <span class="pcoded-mtext">Sub Category</span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li class="<?= activate_menu('enquiry'); ?>">
