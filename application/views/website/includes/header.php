@@ -113,16 +113,20 @@
                         <a class="nav-link" href="javascript:void(0);"><?= $menu['name']; ?></a>
                         <div class="mega-menu mega-shop">
                             <div class="mega-anchor"></div>
+                            <?php
+                                foreach($menu['submenu'] as $key=>$submenu){
+                            ?>
                             <div class="mega-menu__column">
-                                <!--<h4>Accessories<span class="sub-toggle"></span></h4>-->
+                                <h4><?= $key; ?><span class="sub-toggle"></span></h4>
                                 <ul class="sub-menu--mega">
                                     <?php
-                                        foreach($menu['submenu'] as $submenu){
+                                        foreach($submenu as $submenuitem){
                                     ?>
-                                    <li><a href="<?= base_url('category/'.$submenu['slug']); ?>"><?= $submenu['name']; ?></a></li>
+                                    <li><a href="<?= base_url('category/'.$submenuitem['slug']); ?>"><?= $submenuitem['name']; ?></a></li>
                                     <?php } ?>
                                 </ul>
                             </div>
+                            <?php } ?>
                         </div>
                     </li>
                     <?php
