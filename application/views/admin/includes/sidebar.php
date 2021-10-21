@@ -38,6 +38,14 @@
                                                 </li>
                                             </ul>
                                         </li>
+                                        <li class="<?= activate_menu('enquiry'); ?>">
+                                            <a href="<?=  admin_url('enquiry/'); ?>" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon">
+                                                    <i class="fa fa-list"></i>
+                                                </span>
+                                                <span class="pcoded-mtext">Enquiry</span>
+                                            </a>
+                                        </li>
                                         <li class="pcoded-hasmenu active pcoded-trigger d-none">
                                             <a href="javascript:void(0)" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="feather icon-home"></i></span>

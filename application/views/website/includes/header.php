@@ -18,12 +18,14 @@
                 <div class="header-inner">
                     <div class="header-inner__left"><a class="logo" href="<?= base_url(); ?>">JK<b class="text-black">Handicraft.</b></a></div>
                     <div class="header-inner__center">
-                        <div class="input-group">                            
-                            <input class="form-control input-search" placeholder="I'm searchching for...">
+                            <?= form_open('search/','method="get"'); ?>
+                        <div class="input-group">       
+                            <input class="form-control input-search" name="query" placeholder="I'm Searching for..." value="<?= $this->input->get('query'); ?>">
                             <div class="input-group-append">
                                 <button class="btn">Search</button>
                             </div>
                         </div>
+                            <?= form_close(); ?>
                         <!--<div class="result-search">
                             <ul class="list-result">
                                 <li class="cart-item">

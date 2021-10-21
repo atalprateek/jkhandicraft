@@ -144,7 +144,7 @@ class Product_model extends CI_Model{
         }
     }
     
-    public function getproducts($where=array(),$type="all",$orderby="t1.id"){
+    public function getproducts($where=array(),$type="all",$orderby="t1.id",$count=false,$offset=false){
         $columns="t1.*,  case when t2.image='' then '' else concat('".file_url()."',t2.image) end as image,t3.name as category_name,t3.slug as category_slug,round((t1.price-((t1.price*t1.discount)/100)),2) as discount_price";
         //",t4.unit";
         $this->db->select($columns);
@@ -154,6 +154,12 @@ class Product_model extends CI_Model{
         //$this->db->join("units t4","t1.unit_id=t4.id",'left');
         $this->db->where($where);
         $this->db->order_by($orderby);
+		if($count!==false && $offset!==false){ 
+			$this->db->limit($count,$offset);
+		}
+		elseif($count!==false && $offset===false){ 
+			$this->db->limit($count);
+		}
         $query=$this->db->get();
         if($type=='all'){
             $array=$query->result_array();
@@ -172,6 +178,16 @@ class Product_model extends CI_Model{
             $array['subcategory_id']=($category['parent_id']==0)?'':$category['id'];
         }
         return $array;
+    }
+    
+    public function countproducts($where){
+        $this->db->from("products t1");
+        $this->db->join("product_images t2","t1.id=t2.product_id and type='thumb'");
+        $this->db->join("category t3","t1.category=t3.id");
+        //$this->db->join("units t4","t1.unit_id=t4.id",'left');
+        $this->db->where($where);
+        $query=$this->db->get();
+        return $query->num_rows();
     }
     
     public function getproductimages($product_id){
@@ -563,6 +579,23 @@ class Product_model extends CI_Model{
             $error=$this->db->error();
             return array("status"=>false,"message"=>$error['message']);
         }
+    }
+    
+    public function getenquiries($where=array(),$type="all"){
+        $columns="t1.*,  t2.name as product";
+        $this->db->select($columns);
+        $this->db->from('enquiry t1');
+        $this->db->join('products t2','t1.product_id=t2.id');
+        $this->db->where($where);
+        $this->db->order_by('t1.id desc');
+        $query=$this->db->get();
+        if($type=='all'){
+            $array=$query->result_array();
+        }
+        else{
+            $array=$query->unbuffered_row('array');
+        }
+        return $array;
     }
     
 }

@@ -61,5 +61,12 @@ $route['search']='products/search';
 $route['product/(:any)']='products/index';
 $route['category']='products/category';
 $route['category/(:any)']='products/category';
+$route['category/(:any)/page/(:num)']='products/category';
+$route['category/page/(:num)']='products/category';
+
+$route['search']='products/category';
+$route['search/(:any)']='products/category';
+$route['search/(:any)/page/(:num)']='products/category';
+$route['search/page/(:num)']='products/category';
 
 $route['admin/logout']='admin/login/logout';
