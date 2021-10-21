@@ -184,11 +184,6 @@ class Products extends CI_Controller {
                 $data['image']=$upload['path'];
             }
 			else{$data['image']='';}
-            $headings=array();
-            foreach($data['headings'] as $heading){
-                $headings[generate_slug($heading)]=$heading;
-            }
-            $data['headings']=json_encode($headings);
 			$result=$this->products->addcategory($data);
 			if($result['status']===true){
 				$this->session->set_flashdata("msg",$result['message']);

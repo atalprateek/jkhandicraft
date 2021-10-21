@@ -16,7 +16,7 @@
                                     <div class="col-md-6">
                                         <?= form_open_multipart('admin/products/addsubcategory/'); ?>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Category</label>
+                                                <label class="col-sm-2 col-form-label">Sub Category</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" name="name" id="name" required>
                                                 </div>
@@ -28,7 +28,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Parent</label>
+                                                <label class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
                                                     <select name="parent_id" class="form-control fill" id="parent_id">
                                                         <option value="">Select Parent</option>
@@ -73,7 +73,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label"></label>
                                                 <div class="col-sm-10">
-                                                    <input type="submit" class="btn btn-success waves-effect waves-light" name="addsubcategory" value="Save Category">
+                                                    <input type="submit" class="btn btn-success waves-effect waves-light" name="addsubcategory" value="Save Sub Category">
                                                     <button type="button" class="btn btn-danger waves-effect waves-light cancel-btn hidden">Cancel</button>
                                                 </div>
                                             </div>
@@ -173,7 +173,7 @@
                     $('#headings').attr('data-val',data['headings']);
                     $('#headings').val(data['headings'])
                     $('.cancel-btn').removeClass('hidden');
-                    $('input[name="addsubcategory"]').attr('name','updatesubcategory').val('Update Category');
+                    $('input[name="addsubcategory"]').attr('name','updatesubcategory').val('Update Sub Category');
                     $('form').attr('action','<?= admin_url('products/updatesubcategory/'); ?>');
                     $('#parent_id').find('option[value="'+data['id']+'"]').hide();
                 }
@@ -182,7 +182,7 @@
         $('.cancel-btn').click(function(){
             $('#name,#slug,#parent_id,#description,#id,#image').val('');
             $('.cancel-btn').addClass('hidden');
-            $('input[name="updatesubcategory"]').attr('name','addsubcategory').val('Save Category');
+            $('input[name="updatesubcategory"]').attr('name','addsubcategory').val('Save Sub Category');
             $('form').attr('action','<?= admin_url('products/addsubcategory/'); ?>');
             $('#parent_id option').show();
         });
