@@ -21,5 +21,6 @@
         <link rel="stylesheet" href="<?= file_url('assets/plugins/lightGallery/dist/css/lightgallery.min.css'); ?>">
         <link rel="stylesheet" href="<?= file_url('assets/css/style.css'); ?>">
         <link rel="stylesheet" href="<?= file_url('assets/css/custom.css'); ?>">
+        <script src="<?= file_url('assets/plugins/jquery.min.js'); ?>"></script>
     </head>
     <body>

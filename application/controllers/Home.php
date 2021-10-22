@@ -11,6 +11,7 @@ class Home extends CI_Controller {
 	public function index(){
         $data['title']="Home";
         $products=$this->getfilteredproducts();
+        $data['categories']=$this->products->getcategory();
         $data=array_merge($data,$products);
         $this->load->view('website/includes/top-section',$data);
         $this->load->view('website/includes/header');

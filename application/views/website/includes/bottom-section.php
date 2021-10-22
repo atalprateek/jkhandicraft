@@ -1,5 +1,4 @@
 
-        <script src="<?= file_url('assets/plugins/jquery.min.js'); ?>"></script>
         <script src="<?= file_url('assets/plugins/popper.min.js'); ?>"></script>
         <script src="<?= file_url('assets/plugins/bootstrap/js/bootstrap.min.js'); ?>"></script>
         <script src="<?= file_url('assets/plugins/owl-carousel/owl.carousel.min.js'); ?>"></script>

@@ -68,12 +68,14 @@ class Products extends CI_Controller {
 		$link=$this->uri->segment(1).'/';
 		$page=1;
 		$data['selected']=array();
+        $data['categories']=$this->products->getcategory();
 		$pagefilters=array();
         
         $category_slug=$this->uri->segment(2);
         $query=$this->input->get('query');
+        $cats=$this->input->get('cats');
         $category=$this->products->getcategory(array("slug"=>$category_slug),"single");
-        if((empty($category) || !is_array($category)) && $query===NULL){
+        if((empty($category) || !is_array($category)) && $query===NULL && $cats===NULL){
             redirect('/');
         }
         $where=array();
@@ -91,13 +93,27 @@ class Products extends CI_Controller {
             $link.=$category['slug'].'/';
         }
         
+        if(!empty($cats) && is_array($cats)){
+            $cats=implode("','",$cats);
+            $data['cats']=$cats;
+            $where[]="(t3.slug in ('$cats') or t3.parent_id in (SELECT id from ".TP."category where slug in ('$cats')))";
+            $data['selected'][]=$cats;
+            //$link.=$category['slug'].'/';
+            $pagefilters['cats[]']=$cats;
+            $this->db->select('group_concat(name) as name');
+            $catnames=$this->db->get_where("category","slug in ('$cats')")->unbuffered_row()->name;
+            $data['searchtitle']="Search Results for '$catnames'";
+        }
+        
 		if($query!==NULL && trim($query)!=''){
 			$query=$query;
 			$pagefilters['query']=$query;
 			$where[]="t1.name like '%$query%'";
 			$data['selected'][]=$query;
 		}
-        
+        if($link=='products/'){
+            $link='search/';
+        }
 		/*if($this->input->get('category')!==NULL && trim($this->input->get('category'))!=''){
 			$category=$this->input->get('category');
 			$pagefilters['category']=$category;
@@ -153,7 +169,8 @@ class Products extends CI_Controller {
 			return $data;
 		}
 		else{
-			//$this->load->view('website/pages/product/product-list',$products);
+            $data=array_merge($data,$products);
+			$this->load->view('website/products/productlist',$data);
 		}
 	}
 	

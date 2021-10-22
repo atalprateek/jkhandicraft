@@ -161,6 +161,7 @@ class Product_model extends CI_Model{
 			$this->db->limit($count);
 		}
         $query=$this->db->get();
+        //echo $this->db->last_query();
         if($type=='all'){
             $array=$query->result_array();
             /*foreach($array as $key=>$value){
