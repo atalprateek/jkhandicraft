@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2021 at 03:29 PM
+-- Generation Time: Oct 21, 2021 at 05:35 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -33,6 +33,7 @@ CREATE TABLE `jk_category` (
   `slug` varchar(100) NOT NULL,
   `description` varchar(255) NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `headings` text NOT NULL,
   `image` text NOT NULL,
   `banner_image` varchar(255) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1
@@ -42,9 +43,35 @@ CREATE TABLE `jk_category` (
 -- Dumping data for table `jk_category`
 --
 
-INSERT INTO `jk_category` (`id`, `name`, `slug`, `description`, `parent_id`, `image`, `banner_image`, `status`) VALUES
-(1, 'Jewellery & Accessories', 'jewellery-accessories', '', 0, '/assets/images/category/jewellery-accessories2.jpeg', NULL, 1),
-(2, 'Hats & Caps', 'hats-caps', '', 1, '/assets/images/category/hats-caps.jpeg', NULL, 1);
+INSERT INTO `jk_category` (`id`, `name`, `slug`, `description`, `parent_id`, `headings`, `image`, `banner_image`, `status`) VALUES
+(1, 'Jewellery & Accessories', 'jewellery-accessories', '', 0, '{\"accessories\":\"Accessories\",\"bags-purses\":\"Bags & Purses\",\"necklaces\":\"Necklaces\",\"rings\":\"Rings\"}', '/assets/images/category/jewellery-accessories2.jpeg', NULL, 1),
+(2, 'Hats & Caps', 'hats-caps', '', 1, 'accessories', '/assets/images/category/hats-caps.jpeg', NULL, 1),
+(3, 'Clothing & Shoes', 'clothing-shoes', '', 0, '', '/assets/images/category/clothing-shoes.jpeg', NULL, 1),
+(4, 'Backpacks', 'backpacks', '', 1, 'bags-purses', '/assets/images/category/backpacks.jpeg', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jk_enquiry`
+--
+
+CREATE TABLE `jk_enquiry` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `mobile` varchar(10) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `query` text NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `added_on` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jk_enquiry`
+--
+
+INSERT INTO `jk_enquiry` (`id`, `product_id`, `name`, `mobile`, `email`, `query`, `status`, `added_on`) VALUES
+(1, 1, 'Atal Prateek Barla', '7739576693', 'prateek.atal@gmail.com', 'sdf', 0, '2021-10-21 14:00:03');
 
 -- --------------------------------------------------------
 
@@ -66,6 +93,14 @@ CREATE TABLE `jk_products` (
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `jk_products`
+--
+
+INSERT INTO `jk_products` (`id`, `category`, `sku`, `name`, `slug`, `unit_id`, `short_description`, `description`, `price`, `discount`, `status`) VALUES
+(1, '2', NULL, 'Product 1', 'product-1', 0, 'Acc', 'eCommerce\nLive Search Bar for an eCommerce Website like Amazon\nMay 11th, 2021\neCommerce live search example PHP code with steps to implement for an eCommerce website. Lightweight custom PHP without using any plugin or\nSingle Product eCommerce Website with Email Checkout in PHP\nApril 27th, 2021\nA basic and clear example for creating an eCommerce website for selling one and only product online and allow checkout order via customer em\nBootstrap eCommerce Recently Viewed Products List Carousel\nMarch 10th, 2021\nBootstrap enabled eCommerce carousel that is dynamically loaded with recently viewed product items from the database.\nBootstrap eCommerce Product Category Subcategory Page with Filter and Navigation\nFebruary 22nd, 2021\nEasy eCommerce website category subcategory setup with search and navigation using jQuery AJAX and Bootstrap UI template.\nGenerate eCommerce Purchase Invoice PDF using PHP Script\nJanuary 24th, 2021\nCode to generate eCommerce purchase order invoice as a PDF document using PHP script.\nBetter Customer Engagement with eCommerce wishlist implementation for shopping cart\nJanuary 3rd, 2021\nA lightweight eCommerce shopping cart wishlist PHP script for free download and implementation.\nStripe One Time Payment with Prebuilt Hosted Checkout in PHP\nOctober 1st, 2020\nEasy integration guide to set up a Stripe payment via hosted checkout with simple example code.\nShipping API Integration in PHP with Australia Post Example\nJanuary 22nd, 2020\nCode for Australia Post shipping API integration in PHP to calculate shipping rates on domestic shipping. It gives good template to build an\nOne Page Checkout Script Free with Example Template in PHP\nDecember 13th, 2019\nA simple solution with example for creating one page checkout script in PHP will reduce the number of steps along with the checkout process.\nHow to Integrate 2Checkout Payment Gateway using PHP\nNovember 27th, 2019\nA simple, step by step implementation guide for integrating 2Checkout payment gateway in PHP using payment API library.', 10000.00, 0, 0),
+(2, '2', NULL, 'Product 2', 'product-2', 0, 'asfsdasdfsd', 'sdafasdfas', 3000.00, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +114,15 @@ CREATE TABLE `jk_product_images` (
   `image` varchar(100) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jk_product_images`
+--
+
+INSERT INTO `jk_product_images` (`id`, `product_id`, `type`, `image`, `status`) VALUES
+(1, 1, 'thumb', '/assets/images/product/product-1.jpeg', 1),
+(2, 1, '', '/assets/images/product/product-11.jpeg', 1),
+(3, 2, 'thumb', '/assets/images/product/product-2.png', 1);
 
 -- --------------------------------------------------------
 
@@ -140,6 +184,12 @@ ALTER TABLE `jk_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `jk_enquiry`
+--
+ALTER TABLE `jk_enquiry`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jk_products`
 --
 ALTER TABLE `jk_products`
@@ -174,19 +224,25 @@ ALTER TABLE `jk_users`
 -- AUTO_INCREMENT for table `jk_category`
 --
 ALTER TABLE `jk_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `jk_enquiry`
+--
+ALTER TABLE `jk_enquiry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jk_products`
 --
 ALTER TABLE `jk_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jk_product_images`
 --
 ALTER TABLE `jk_product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jk_sidebar`

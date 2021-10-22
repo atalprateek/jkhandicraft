@@ -30,7 +30,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <select name="parent_id" class="form-control fill" id="parent_id">
+                                                    <select name="parent_id" class="form-control fill" id="parent_id" required>
                                                         <option value="">Select Parent</option>
                                                         <?php
                                                                 $parent=array("");

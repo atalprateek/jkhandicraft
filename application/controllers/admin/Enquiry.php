@@ -13,6 +13,7 @@ class Enquiry extends CI_Controller {
         //$data['subtitle']="Sample Subtitle";
         $data['breadcrumb']=array();
         $data['datatable']=true;
+        $data['datatableexport']=true;
         $data['enquiries']=$this->products->getenquiries();
 		$this->template->load('enquiry','enquirylist',$data);
 	}

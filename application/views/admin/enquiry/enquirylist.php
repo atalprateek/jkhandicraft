@@ -23,6 +23,7 @@
                                                         <th>Customer Name</th>
                                                         <th>Mobile</th>
                                                         <th>Email</th>
+                                                        <th>Query</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -36,6 +37,7 @@
                                                         <td><?= $enquiry['name']; ?></td>
                                                         <td><?= $enquiry['mobile']; ?></td>
                                                         <td><?= $enquiry['email'];?></td>
+                                                        <td><?= $enquiry['query'];?></td>
                                                     </tr>
                                                     <?php
                                                             }
@@ -57,6 +59,9 @@
 </div>
 <script>
 	$(document).ready(function(e) {
-        $('#table').dataTable();
+        $('#table').dataTable({
+            dom: 'Bfrtip',
+            buttons: ['excel']
+        });
     });
 </script>

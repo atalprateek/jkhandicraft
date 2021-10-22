@@ -62,6 +62,9 @@
 		if(isset($data['datatable']) && $data['datatable']===true){
 			$this->loaddatatable();
 		}
+		if(isset($data['datatableexport']) && $data['datatableexport']===true){
+			$this->loaddatatableexport();
+		}
 		if(isset($data['select2']) && $data['select2']===true){
 			$this->loadselect2();
 		}
@@ -100,6 +103,13 @@
 	function loaddatatable(){
 		$this->styles['link'][]="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css";
 		$this->top_script['link'][]="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js";
+	}
+	
+	function loaddatatableexport(){
+		$this->styles['link'][]="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css";
+		$this->top_script['link'][]="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js";
+		$this->top_script['link'][]="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js";
+		$this->top_script['link'][]="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js";
 	}
 	
 	function loadselect2(){
