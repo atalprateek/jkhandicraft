@@ -23,7 +23,7 @@
                                         </ul>
                                     </div>
                                 </div>
-								<div class="sidebar__block open">
+								<div class="sidebar__block open d-none">
                                     <div class="sidebar__title">Colour<span class="shop-widget-toggle"><i class="icon-minus"></i></span></div>
                                     <div class="block__content">
                                         <ul>
@@ -60,7 +60,7 @@
                                         </ul>
                                     </div>
                                 </div>
-								<div class="sidebar__block open">
+								<div class="sidebar__block open d-none">
                                     <div class="sidebar__title">Item type<span class="shop-widget-toggle"><i class="icon-minus"></i></span></div>
                                     <div class="block__content">
                                         <ul>
