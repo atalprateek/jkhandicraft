@@ -30,6 +30,12 @@
                                         <div class="col-md-8">
                                             <?= form_open_multipart('admin/products/updateproduct/'); ?>
                                                 <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">SKU</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="sku" id="sku" value="<?= $product['sku']; ?>" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label">Product Name</label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" name="name" id="name" required value="<?= $product['name']; ?>">
@@ -41,10 +47,30 @@
                                                         <input type="text" class="form-control" name="slug" id="slug" required value="<?= $product['slug']; ?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row d-none">
-                                                    <label class="col-sm-2 col-form-label">Product No.</label>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Manufacturer</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" name="sku" id="sku" value="<?= $product['sku']; ?>" >
+                                                        <input type="text" class="form-control" name="manufacturer" id="manufacturer" value="<?= $product['manufacturer']; ?>" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Manufacturer Country</label>
+                                                    <div class="col-sm-10">
+                                                        <?php 
+                                                            echo form_dropdown('mcountry',array("India"=>"India","Outside India"=>"Outside India"),$product['mcountry'],array('class'=>'form-control',"id"=>"mcountry")); 
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Seller SKU</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="sellersku" id="sellersku" value="<?= $product['sellersku']; ?>" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">HSN Code</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="hsn" id="hsn" value="<?= $product['hsn']; ?>" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group row d-none">
@@ -89,6 +115,32 @@
                                                     <div class="col-sm-10">
                                                         <input type="number" class="form-control" name="discount" id="discount" value="<?= $product['discount']; ?>">
                                                         <input type="hidden" name="id" value="<?= $product['id']; ?>">
+                                                    </div>
+                                                </div>
+                                                <?php
+                                                    $available=$product['available'];
+                                                    $a=$f=$s="";
+                                                    if(strpos($available,"Amazon")!==false){ $a="checked"; }
+                                                    if(strpos($available,"Flipkart")!==false){ $f="checked"; }
+                                                    if(strpos($available,"Snapdeal")!==false){ $s="checked"; }
+                                                ?>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Product Available @</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" name="available[]" type="checkbox" id="checkbox0" value="Amazon" <?= $a; ?>>
+                                                                <label class="border-checkbox-label" for="checkbox0">Amazon</label>
+                                                            </div>
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" name="available[]" type="checkbox" id="checkbox1" value="Flipkart" <?= $f; ?>>
+                                                                <label class="border-checkbox-label" for="checkbox1">Flipkart</label>
+                                                            </div>
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" name="available[]" type="checkbox" id="checkbox2" value="Snapdeal" <?= $s; ?>>
+                                                                <label class="border-checkbox-label" for="checkbox2">Snapdeal</label>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">

@@ -275,6 +275,8 @@ class Products extends CI_Controller {
                 $data['image']=$upload['path'];
             }
 			else{$data['image']='';}
+            if(isset($data['available'])){ $data['available']=implode(', ',$data['available']); }
+            else{ $data['available']=""; }
 			$result=$this->products->addproduct($data);
 			if($result['status']===true){
 				$this->session->set_flashdata("msg",$result['message']);
@@ -302,6 +304,8 @@ class Products extends CI_Controller {
                 $data['category']=$data['subcategory'];
             }
             unset($data['subcategory']);
+            if(isset($data['available'])){ $data['available']=implode(', ',$data['available']); }
+            else{ $data['available']=""; }
 			$result=$this->products->updateproduct($data);
 			if($result['status']===true){
 				$this->session->set_flashdata("msg",$result['message']);

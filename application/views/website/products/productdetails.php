@@ -15,11 +15,18 @@
                             <img src="<?= $product['image'] ?>" alt="" class="img-fluid">
                         </div>
                         <div class="col-md-7">
-                            <h2><?= $product['name']; ?></h2>
+                            <h2 class="mb-0"><?= $product['name']; ?></h2>
+                            <small>SKU : <?= $product['sku']; ?></small>
+                            <p class="pt-3">HSN Code : <?= $product['hsn']; ?></p>
+                            <p>Manufacturer : <?= $product['manufacturer']; ?></p>
+                            <p>Manufacturer Country: <?= $product['mcountry']; ?></p>
                             <p><?= $product['short_description']; ?></p>
                             <div>
-                                <?= $product['price']; ?>
-                            </div>
+                                Price : <?= $product['price']; ?>
+                            </div><br>
+                            <div>
+                                Product Available @ <?= $product['available']; ?>
+                            </div><br>
                             <div>
                                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" >Submit Enquiry</button>
                             </div>
