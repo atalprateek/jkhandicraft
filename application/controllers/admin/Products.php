@@ -371,12 +371,20 @@ class Products extends CI_Controller {
         }
     }
     
-    public function savepackages(){
-        if($this->input->post('savepackages')!==NULL){
-            $data=$this->input->post();
-            $result=$this->products->savepackages($data);
+    public function saveattributes(){
+        if($this->input->post('saveattributes')!==NULL){
+            $post=$this->input->post();
+            unset($post['saveattributes']);
+            $attributes=array();
+            foreach($post['attribute'] as $key=>$attribute){
+                if(empty($attribute) || empty($post['value'][$key])){continue;}
+                $attributes[$attribute]=$post['value'][$key];
+            }
+            $attributes=json_encode($attributes);
+            $data=array("id"=>$post['product_id'],"attributes"=>$attributes,"name"=>$post['name']);
+			$result=$this->products->updateproduct($data);
 			if($result['status']===true){
-				$this->session->set_flashdata("msg",$result['message']);
+				$this->session->set_flashdata("msg","Attributes added Successfully!");
 			}
             else{
                 $this->session->set_flashdata("err_msg",$result['message']);
@@ -387,7 +395,7 @@ class Products extends CI_Controller {
         if($qpos!==false){
            $link=substr($link,0,$qpos);
         }
-        $link.='?packages';
+        $link.='?details';
         redirect($link);
     }
     

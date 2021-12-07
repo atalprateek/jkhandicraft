@@ -10,21 +10,21 @@
                             <div class="card-header p-b-0">
                                 <ul class="nav nav-tabs md-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link <?= !isset($_GET['images']) && !isset($_GET['packages'])?'active show':'' ?>" data-toggle="tab" href="#details" role="tab" aria-selected="false">Product Details</a>
+                                        <a class="nav-link <?= !isset($_GET['images']) && !isset($_GET['details'])?'active show':'' ?>" data-toggle="tab" href="#details" role="tab" aria-selected="false">Product Details</a>
                                         <div class="slide"></div>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link <?= isset($_GET['images'])?'active show':'' ?>" data-toggle="tab" href="#images" role="tab" aria-selected="true">Product Images</a>
                                         <div class="slide"></div>
                                     </li>
-                                    <li class="nav-item d-none">
-                                        <a class="nav-link <?= isset($_GET['packages'])?'active show':'' ?>" data-toggle="tab" href="#packages" role="tab" aria-selected="true">Product Packages</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link <?= isset($_GET['details'])?'active show':'' ?>" data-toggle="tab" href="#productdetails" role="tab" aria-selected="true">Attributes</a>
                                         <div class="slide"></div>
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-block tab-content p-t-20">
-                                <div class="tab-pane fade <?= !isset($_GET['images']) && !isset($_GET['packages'])?'active show':'' ?>" id="details" role="tabpanel">
+                                <div class="tab-pane fade <?= !isset($_GET['images']) && !isset($_GET['details'])?'active show':'' ?>" id="details" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8">
@@ -207,39 +207,37 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade <?= isset($_GET['packages'])?'active show':'' ?>" id="packages" role="tabpanel">
+                                <div class="tab-pane fade <?= isset($_GET['details'])?'active show':'' ?>" id="productdetails" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8">
-                                            <?= form_open('admin/products/savepackages/'); ?>
+                                            <?= form_open('admin/products/saveattributes/'); ?>
+                                                <?php
+                                                    $attributes=array(""=>"Select","length"=>"Length","width"=>"Width","height"=>"Height","weight"=>"Weight","colour"=>"Colour","shape"=>"Shape","material"=>"material");
+                                                ?>
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>Quantity (in <?= $product['unit']; ?>)</th>
-                                                            <th>Price / <?= $product['unit']; ?></th>
-                                                            <th>Discount</th>
+                                                            <th>Attribute</th>
+                                                            <th>Value</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                            if($productpackages['status']===true){
-                                                                foreach($productpackages['packages'] as $package){
+                                                            $productattributes=json_decode($product['attributes'],true);
+                                                            if(is_array($productattributes)){
+                                                                foreach($productattributes as $attribute=>$value){
                                                         ?>
                                                         <tr>
                                                             <td>
-                                                                <input type="number" name="quantity[]" class="form-control" value="<?= $package['quantity']; ?>" required min="1">
+                                                                <?= form_dropdown('attribute[]',$attributes,$attribute,array('class'=>'form-control','required'=>"true")); ?>
                                                             </td>
                                                             <td>
-                                                                <input type="number" name="price[]" class="form-control" value="<?= $package['price'] ?>" required min="1">
+                                                                <input type="text" name="value[]" class="form-control" value="<?= $value ?>" required>
                                                             </td>
                                                             <td>
-                                                                <input type="number" name="discount[]" class="form-control" value="<?= $package['discount'] ?>" required min="0">
-                                                                <input type="hidden" name="package_id[]" class="form-control" value="<?= $package['id']; ?>" required>
-                                                                <input type="hidden" name="todel[]" class="form-control" value="no" required>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger delete-btn">Delete</button>
+                                                                <button type="button" class="btn btn-danger remove-btn del">Delete</button>
                                                             </td>
                                                         </tr>
                                                         <?php
@@ -247,15 +245,10 @@
                                                         ?>
                                                         <tr>
                                                             <td>
-                                                                <input type="number" name="quantity[]" class="form-control" min="1">
+                                                                <?= form_dropdown('attribute[]',$attributes,'',array('class'=>'form-control')); ?>
                                                             </td>
                                                             <td>
-                                                                <input type="number" name="price[]" class="form-control" min="1">
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" name="discount[]" class="form-control" min="0" value="0">
-                                                                <input type="hidden" name="package_id[]" class="form-control">
-                                                                <input type="hidden" name="todel[]" class="form-control">
+                                                                <input type="text" name="value[]" class="form-control" value="">
                                                             </td>
                                                             <td>
                                                                 <button type="button" class="btn btn-primary add-btn">Add</button>
@@ -267,15 +260,10 @@
                                                         ?>
                                                         <tr>
                                                             <td>
-                                                                <input type="number" name="quantity[]" class="form-control" value="1" required min="1">
+                                                                <?= form_dropdown('attribute[]',$attributes,'',array('class'=>'form-control','required'=>"true")); ?>
                                                             </td>
                                                             <td>
-                                                                <input type="number" name="price[]" class="form-control" value="<?= $product['price'] ?>" required min="1">
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" name="discount[]" class="form-control" value="<?= $product['discount'] ?>" required min="0">
-                                                                <input type="hidden" name="package_id[]" class="form-control" required>
-                                                                <input type="hidden" name="todel[]" class="form-control" required>
+                                                                <input type="text" name="value[]" class="form-control" value="" required >
                                                             </td>
                                                             <td>
                                                                 <button type="button" class="btn btn-primary add-btn">Add</button>
@@ -289,8 +277,9 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label"></label>
                                                     <div class="col-sm-10">
+                                                        <input type="hidden"name="name" value="<?= $product['name']; ?>">
                                                         <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
-                                                        <input type="submit" class="btn btn-success waves-effect waves-light" name="savepackages" value="Save Packages">
+                                                        <input type="submit" class="btn btn-success waves-effect waves-light" name="saveattributes" value="Save Attributes">
                                                         <a href="<?= admin_url('products/'); ?>" class="btn btn-danger waves-effect waves-light">Cancel</a>
                                                     </div>
                                                 </div>
@@ -379,16 +368,23 @@
 				alert("You can only upload a maximum of "+maxUpload+" files");
 			}
 		});    
-        $('#packages').on('click','.add-btn',function(){
+        $('#productdetails').on('click','.add-btn',function(){
             var tr='<tr>'+$(this).closest('tr').html()+'</tr>';
             $(this).closest('tbody').append(tr);
             $(this).closest('tbody').children().last().find('input').val('');
-            $(this).closest('tbody').children().last().find('button').text('Remove').removeClass('add-btn btn-primary').addClass('remove-btn btn-danger');
+            $(this).closest('tbody').children().last().find('button').text('Remove').removeClass('add-btn btn-primary').addClass('remove-btn btn-danger rem');
+            $('#productdetails input,#productdetails select').attr('required',true);
         });
-        $('#packages').on('click','.remove-btn',function(){
+        $('#productdetails').on('click','.remove-btn',function(){
             $(this).closest('tr').remove();
+            if($('.del').length>0 && $('.rem').length==0){
+                $('.add-btn').closest('tr').find('input,select').removeAttr('required');
+            }
+            else{
+                $('#productdetails input,#productdetails select').attr('required',true);
+            }
         });
-        $('#packages').on('click','.delete-btn',function(){
+        $('#productdetails').on('click','.delete-btn',function(){
             $(this).closest('td').prev().find('input[name="todel[]"]').val('yes').closest('tr').hide();
             if($('.delete-btn:visible').length==0){
                 $(this).closest('tbody').children().last().find('input').attr('required',true);
@@ -396,6 +392,10 @@
         });
         $('input[name="quantity[]"]').first().attr("readonly",true).closest('tr').find('.delete-btn').remove();
     });
+    
+    function setrequired(){
+        $('#productdetails input').attr('required',true);
+    }
 function getPhoto(input){
     
 }

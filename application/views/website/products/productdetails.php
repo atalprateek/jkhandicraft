@@ -32,6 +32,38 @@
                             </div>
                         </div>
                     </div><br>
+                    <?php  
+                        $attributes=array(""=>"Select","length"=>"Length","width"=>"Width","height"=>"Height",
+                                          "weight"=>"Weight","colour"=>"Colour","shape"=>"Shape",
+                                          "material"=>"material");
+                        $productattributes=json_decode($product['attributes'],true);
+                        if(is_array($productattributes)){
+                    ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Product Details</h3>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <?php
+                                            foreach($productattributes as $attribute=>$value){
+                                        ?>
+                                        <tr>
+                                            <td width="60%"><?= $attributes[$attribute]; ?></td>
+                                            <td><?= $value; ?></td>
+                                        </tr>
+                                        <?php
+                                            }
+                                        ?>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                        }
+                    ?>
                     <div class="row">
                         <div class="col-12">
                             <h3>Description</h3>
