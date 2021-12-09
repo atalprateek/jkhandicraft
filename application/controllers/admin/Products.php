@@ -313,6 +313,21 @@ class Products extends CI_Controller {
             else{
                 $this->session->set_flashdata("err_msg",$result['message']);
             }
+            redirect(admin_url('products/editproduct/'.$data['slug']));
+        }
+        if($this->input->post('updatemetatags')!==NULL){
+            $data=$this->input->post();
+            $slug=$data['slug'];
+            unset($data['updatemetatags'],$data['slug']);
+            
+			$result=$this->products->updateproduct($data);
+			if($result['status']===true){
+				$this->session->set_flashdata("msg",$result['message']);
+			}
+            else{
+                $this->session->set_flashdata("err_msg",$result['message']);
+            }
+            redirect(admin_url('products/editproduct/'.$slug.'/?metatags'));
         }
         redirect(admin_url('products/'));
     }

@@ -10,7 +10,7 @@
                             <div class="card-header p-b-0">
                                 <ul class="nav nav-tabs md-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link <?= !isset($_GET['images']) && !isset($_GET['details'])?'active show':'' ?>" data-toggle="tab" href="#details" role="tab" aria-selected="false">Product Details</a>
+                                        <a class="nav-link <?= !isset($_GET['images']) && !isset($_GET['details']) && !isset($_GET['metatags'])?'active show':'' ?>" data-toggle="tab" href="#details" role="tab" aria-selected="false">Product Details</a>
                                         <div class="slide"></div>
                                     </li>
                                     <li class="nav-item">
@@ -21,10 +21,14 @@
                                         <a class="nav-link <?= isset($_GET['details'])?'active show':'' ?>" data-toggle="tab" href="#productdetails" role="tab" aria-selected="true">Attributes</a>
                                         <div class="slide"></div>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <?= isset($_GET['metatags'])?'active show':'' ?>" data-toggle="tab" href="#metatags" role="tab" aria-selected="true">Meta Tags</a>
+                                        <div class="slide"></div>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="card-block tab-content p-t-20">
-                                <div class="tab-pane fade <?= !isset($_GET['images']) && !isset($_GET['details'])?'active show':'' ?>" id="details" role="tabpanel">
+                                <div class="tab-pane fade <?= !isset($_GET['images']) && !isset($_GET['details']) && !isset($_GET['metatags'])?'active show':'' ?>" id="details" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8">
@@ -287,6 +291,50 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade <?= isset($_GET['metatags'])?'active show':'' ?>" id="metatags" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <?= form_open_multipart('admin/products/updateproduct/'); ?>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Title</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="title" id="title" value="<?= ($product['title']=='')?$product['name']:$product['title']; ?>" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Keywords</label>
+                                                    <div class="col-sm-10">
+                                                        <textarea name="keywords" id="keywords" class="form-control"><?= $product['keywords']; ?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Description</label>
+                                                    <div class="col-sm-10">
+                                                        <textarea name="tag_description" id="tag_description" class="form-control"><?= $product['tag_description']; ?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Canonical URL</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="canonical" id="canonical" required value="<?= ($product['canonical']=='')?base_url('product/'.$product['slug'].'/'):$product['canonical']; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"></label>
+                                                    <div class="col-sm-10">
+                                                        <input type="hidden" name="name" value="<?= $product['name']; ?>">
+                                                        <input type="hidden" name="slug" value="<?= $product['slug']; ?>">
+                                                        <input type="hidden" name="id" value="<?= $product['id']; ?>">
+                                                        <input type="submit" class="btn btn-success waves-effect waves-light" name="updatemetatags" value="Update Meta Tags">
+                                                        <a href="<?= admin_url('products/'); ?>" class="btn btn-danger waves-effect waves-light">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            <?= form_close(); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
