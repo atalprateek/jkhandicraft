@@ -7,9 +7,10 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="author" content="">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-        <title><?= $title; ?> | JK Handicrafts</title>
+        <meta name="keywords" content="<?= !empty($product['keywords'])?$product['keywords']:'' ?>">
+        <meta name="description" content="<?= !empty($product['tag_description'])?$product['tag_description']:'' ?>">
+        <title><?= !empty($product['title'])?$product['title']:$title.' | JK Handicrafts'; ?></title>
+        <meta rel="canonical" href="<?= !empty($product['canonical'])?$product['canonical']:(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>">
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="<?= file_url('assets/fonts/Linearicons/Font/demo-files/demo.css'); ?>">
         <link rel="stylesheet" href="<?= file_url('assets/plugins/bootstrap/css/bootstrap.min.css'); ?>">
