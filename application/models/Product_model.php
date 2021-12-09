@@ -191,6 +191,27 @@ class Product_model extends CI_Model{
         return $query->num_rows();
     }
     
+    public function deleteproduct($id){
+        $images=$this->db->get_where("product_images",array("product_id"=>$id))->result_array();
+        if($this->db->delete("products",array("id"=>$id))){
+            $this->db->delete("product_images",array("product_id"=>$id));
+            if(is_array($images)){
+                foreach($images as $image){
+                    $src=$image['image'];
+                    if (is_readable('.'.$src) && is_file('.'.$src)) {
+                        unlink('.'.$src);
+                        //echo "The file has been deleted";
+                    }
+                }
+            }
+            return array("status"=>true,"message"=>"Product Deleted Successfully!");
+        }
+        else{
+            $error=$this->db->error();
+            return array("status"=>false,"message"=>$error['message']);
+        }
+    }
+    
     public function getproductimages($product_id){
         $where=array("product_id"=>$product_id);
         $columns="*,  case when image='' then '' else concat('".file_url()."',image) end as image";

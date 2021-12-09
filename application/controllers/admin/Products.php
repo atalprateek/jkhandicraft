@@ -317,6 +317,20 @@ class Products extends CI_Controller {
         redirect(admin_url('products/'));
     }
     
+    public function deleteproduct(){
+        if($this->input->post('deleteproduct')!==NULL){
+            $id=$this->input->post('id');
+            $result=$this->products->deleteproduct($id);
+			if($result['status']===true){
+				$this->session->set_flashdata("msg",$result['message']);
+			}
+            else{
+                $this->session->set_flashdata("err_msg",$result['message']);
+            }
+        }
+        redirect(admin_url('products/'));
+    }
+    
     public function addimages(){
         if($this->input->post('addimages')!==NULL){
             $data=$this->input->post();

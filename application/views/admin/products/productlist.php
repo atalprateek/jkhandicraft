@@ -43,6 +43,10 @@
                                                         <!--<td><?= $product['discount']; ?></td>-->
                                                         <td>
                                                             <a href="<?= admin_url('products/editproduct/'.$product['slug'].'/'); ?>" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
+                                                            <?= form_open('admin/products/deleteproduct/','onSubmit="return validate()"'); ?>
+                                                            <input type="hidden" name="id" value="<?= $product['id']; ?>">
+                                                                <button type="submit" class="btn btn-danger btn-xs" name="deleteproduct" value="deleteproduct"><i class="fa fa-trash"></i></button>
+                                                            <?= form_close(); ?>
                                                         </td>
                                                     </tr>
                                                     <?php
@@ -67,4 +71,10 @@
 	$(document).ready(function(e) {
         $('#table').dataTable();
     });
+    
+    function validate(){
+        if(!confirm("Are you sure you want to Delete this Product?")){
+            return false;
+        }   
+    }
 </script>
